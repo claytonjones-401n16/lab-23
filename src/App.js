@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RESTy from './components/RESTy';
+import RESTy from './components/Resty.js';
 
 import './styles/styles.scss';
 
