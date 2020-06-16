@@ -8,7 +8,7 @@ export default function Footer() {
         <img src={'/assets/linkedin.png'} alt={'LinkedIn logo'} />
       </a>
       <a href='https://github.com/clayton-jones'>
-        <img src={'/assets/github-image.png'} alt={'GitHub logo'} />
+        <img src={'/assets/github.png'} alt={'GitHub logo'} />
       </a>
     </footer>
   )

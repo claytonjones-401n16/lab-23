@@ -1,0 +1,11 @@
+
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+$header-font: 'PT Sans', sans-serif;
+$body-font: 'Cutive Mono', monospace;
+$footer-font: 'Nunito', sans-serif;
+$button-font: 14px helvetica;

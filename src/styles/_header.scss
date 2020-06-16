@@ -1,10 +1,14 @@
 @import './colors';
-
+@import './util';
 
 header {
   height: 10vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid black;
+  @include flex-center();
+  background-color: $black;
+  color: $white;
+  
+  h1 {
+    font-family: $header-font;
+    font-size: 3rem;
+  }
 }

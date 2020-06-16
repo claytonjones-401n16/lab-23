@@ -38,9 +38,8 @@ function Button(props) {
   }
 
   return(
-    <button className={`${props.text === props.selected ? 'selected' : ''} ${props.type ? props.type : ''}`} onClick={props.type ? handleSubmit : handleClick}>{props.text}</button>
+    <button className={`${props.type ? props.type : props.text === props.selected ? 'selected' : 'not-selected'}`} onClick={props.type ? handleSubmit : handleClick}>{props.text}</button>
   )
 }
-
 
 
