@@ -2,6 +2,8 @@ import React from 'react';
 
 import Form from './Form';
 import Results from './Results';
+import Header from './Header';
+import Footer from './Footer';
 
 export default class RESTy extends React.Component {
   constructor(props) {
@@ -47,10 +49,13 @@ export default class RESTy extends React.Component {
 
   render() {
     return (
-        <div>
-          <h1>RESTy</h1>
-          <Form onChange={this.updateParams.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL}/>
-          <Results results={this.state.resBody} headers={this.state.resHeaders}/>
+        <div className='resty'>
+          <Header />
+          <main>
+            <Form onChange={this.updateParams.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL}/>
+            <Results results={this.state.resBody} headers={this.state.resHeaders}/>
+          </main>
+          <Footer />
         </div>
       )
     }

@@ -1,0 +1,14 @@
+@import './colors';
+
+footer {
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+
+  a,
+  p {
+    margin: 0 1rem;
+  }
+}

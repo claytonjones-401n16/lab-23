@@ -1,0 +1,46 @@
+@import './colors';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 15%;
+  width: 80%;
+  max-width: 800px;
+
+  .user-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    min-width: 100%;
+
+    input {
+      min-width: 80%;
+      outline: none;
+      font-size: 1rem;
+    }
+
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1px;
+  }
+
+  button {
+    outline: none;
+    height: 1.5rem;
+    border-radius: 5px;
+    margin: 0 5px;
+
+    &.selected {
+      background-color: rgb(49, 49, 129);
+      color: white;
+      border-radius: 5px;
+    }
+  }
+}

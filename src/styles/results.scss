@@ -1,0 +1,15 @@
+@import './colors';
+
+.results {
+
+  border: 1px inset #797777;
+  height: 80%;
+  width: 80%;
+  /* min-width: 80%; */
+  max-width: 800px;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  pre {
+    padding: 10px;
+  }
+}
