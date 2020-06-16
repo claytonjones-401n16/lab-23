@@ -1,0 +1,19 @@
+@import './colors';
+@import './util';
+
+.results {
+
+  border: 2px inset #797777;
+  background-color: $white;
+  height: 80%;
+  width: 80%;
+  max-width: 800px;
+  overflow: scroll;
+  scroll-behavior: smooth;
+
+  pre {
+    padding: 10px;
+    font-family: $body-font;
+    font-size: 18px;
+  }
+}

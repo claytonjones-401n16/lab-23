@@ -1,0 +1,10 @@
+@import './colors';
+
+main {
+  flex: 1;
+  max-height: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $gray;
+}

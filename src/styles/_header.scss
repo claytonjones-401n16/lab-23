@@ -1,0 +1,14 @@
+@import './colors';
+@import './util';
+
+header {
+  height: 10vh;
+  @include flex-center();
+  background-color: $black;
+  color: $white;
+  
+  h1 {
+    font-family: $header-font;
+    font-size: 3rem;
+  }
+}
