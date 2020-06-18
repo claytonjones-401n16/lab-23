@@ -14,6 +14,7 @@ export default class RESTy extends React.Component {
       reqType: 'GET',
       resHeaders: '',
       resBody: '',
+      history: [],
     }
   }
 
@@ -30,9 +31,6 @@ export default class RESTy extends React.Component {
       method: this.state.reqType,
     });
 
-    // console.log('response:', response);
-
-
     // found solution to fetch headers object issue here: https://stackoverflow.com/questions/48413050/missing-headers-in-fetch-response/48432628
     let headers = {};
     for(let entry of response.headers.entries()) {
@@ -44,7 +42,20 @@ export default class RESTy extends React.Component {
     let data = await response.json();
     data = JSON.stringify(data, null, 2);
 
-    await this.setState({...this.state, resBody: "Response : " + data, resHeaders: "Headers : " + headers });    
+    await this.setState({...this.state, resBody: "Response : " + data, resHeaders: "Headers : " + headers });  
+    
+    let reqToSave = {
+      url: this.state.reqURL,
+      method: this.state.reqType,
+      body: this.state.resBody
+    }
+
+    const exists = (element) => element.url === reqToSave.url && element.method === reqToSave.method;
+    
+    if (!this.state.history.some(exists)) {
+      await this.setState({...this.state, history: [...this.state.history, reqToSave]});
+    }
+
   }
 
   render() {
