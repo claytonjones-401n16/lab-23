@@ -1,9 +1,11 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Form from './Form';
 import Results from './Results';
 import Header from './Header';
 import Footer from './Footer';
+import History from './History';
 
 export default class RESTy extends React.Component {
   constructor(props) {
@@ -18,7 +20,7 @@ export default class RESTy extends React.Component {
     }
   }
 
-  async updateParams(val, key) {
+  async updateState(val, key) {
     await this.setState({...this.state, [key]: val});
   }
 
@@ -60,14 +62,22 @@ export default class RESTy extends React.Component {
 
   render() {
     return (
-        <div className='resty'>
-          <Header />
-          <main>
-            <Form onChange={this.updateParams.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL}/>
-            <Results results={this.state.resBody} headers={this.state.resHeaders}/>
-          </main>
-          <Footer />
-        </div>
+        <Router>
+          <div className='resty'>
+            <Header updateState={this.updateState.bind(this)}/>
+            <main>
+              <Route path='/' exact>
+                <Form onChange={this.updateState.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL}/>
+                
+                <Results results={this.state.resBody} headers={this.state.resHeaders}/>
+              </Route>
+              <Route path='/history'>
+                <History history={this.state.history} updateState={this.updateState.bind(this)} submit={this.fetchAPI.bind(this)}/>
+              </Route>
+            </main>
+            <Footer />
+          </div>
+        </Router>
       )
     }
 }
