@@ -54,7 +54,6 @@ export default class RESTy extends React.Component {
 
   async fetchAPI() {
     try {
-
       let reqBody = this.isValidJSON(this.state.reqBody) ? JSON.parse(this.state.reqBody) : {};
       let reqHeaders = this.isValidJSON(this.state.reqHeaders) ? JSON.parse(this.state.reqHeaders) : {};
 
@@ -116,8 +115,8 @@ export default class RESTy extends React.Component {
           <div className='resty'>
             <Header updateState={this.updateState.bind(this)}/>
             <main>
-              <Sidebar history={this.state.history} updateState={this.updateState.bind(this)}/>
               <Route path='/' exact>
+              <Sidebar history={this.state.history} updateState={this.updateState.bind(this)}/>
                 <Form onChange={this.updateState.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL} reqBody={this.state.reqBody} reqHeaders={this.state.reqHeaders} showBodyHeader={this.state.showBodyHeader}/>
                 
                 <Results results={this.state.resBody} headers={this.state.resHeaders} loading={this.state.loading} invalid={this.state.invalid} updateState={this.updateState.bind(this)}/>

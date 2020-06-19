@@ -13,6 +13,7 @@ export default function Results(props) {
     await props.updateState(true, 'showBodyHeader');
 
   }
+  
   if(props.results) {
     return(
       <div className='results'>
