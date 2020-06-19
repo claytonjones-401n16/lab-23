@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Form from './Form';
 import Results from './Results';
@@ -33,6 +33,8 @@ export default class RESTy extends React.Component {
     if (this.state.reqURL) {
       await this.updateState(true, 'loading');
       await this.fetchAPI();
+    } else {
+      await this.updateState(true, 'invalid');
     }
   }
 
@@ -45,7 +47,7 @@ export default class RESTy extends React.Component {
   
       // found solution to fetch headers object issue here: https://stackoverflow.com/questions/48413050/missing-headers-in-fetch-response/48432628
       let headers = {};
-      
+
       for(let entry of response.headers.entries()) {
         headers[entry[0]] = entry[1];
       }
