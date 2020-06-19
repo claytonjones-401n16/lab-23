@@ -1,10 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import { Link } from 'react-router-dom';
 
 export default function History(props) {
-
-  const [arrow, setArrow] = useState(true);
 
   async function onClick(method, url) {
     await props.updateState('', 'resBody');
@@ -31,11 +29,18 @@ export default function History(props) {
           <img src="./assets/down-arrow.svg" alt="down arrow" className='down-arrow' onClick={toggleArrow}/>
           <p>{`${req.method}: ${req.url}`}</p>
           <Link to='/' key={(i + 1000)} >
-            <button key={(i + 2000)} onClick={ async () => { await onClick(req.method, req.url) } }>GO!</button>
+            <button key={(i + 2000)} onClick={ async () => { await onClick(req.method, req.url) } }>Re-Run!</button>
           </Link>
         </div>
         <div className={`req-body`}>
-          <pre>{req.body}</pre>
+          {
+            !req.reqHeaders && !req.reqBody 
+              ? <pre>Body and Headers N/A</pre> 
+              : <>
+                  <pre>{req.reqHeaders}</pre>
+                  <pre>{req.reqBody}</pre>
+                </>
+          }
         </div>
       </li>
     );

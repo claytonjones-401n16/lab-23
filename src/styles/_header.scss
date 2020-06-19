@@ -6,9 +6,35 @@ header {
   @include flex-center();
   background-color: $black;
   color: $white;
+  position: relative;
+
+  a {
+    text-decoration: none;
+    color: $white;
+  }
   
   h1 {
     font-family: $header-font;
     font-size: 3rem;
+  }
+
+  nav {
+    @include flex-center();
+    position: absolute;
+    right: 0;
+    padding-right: 1rem;
+
+    ul {
+      @include flex-center();
+
+      li {
+        padding: 0.5rem;
+        border-radius: 10px;
+      }
+
+      li:hover {
+        background-color: $button-color;
+      }
+    }
   }
 }

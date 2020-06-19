@@ -8,6 +8,33 @@ export default function Form(props) {
     props.onChange(e.target.value, 'reqURL');
   }
 
+  function handleBodyChange(e) {
+    props.onChange(e.target.value, 'reqBody');
+  }
+
+  function handleHeadersChange(e) {
+    props.onChange(e.target.value, 'reqHeaders');
+  }
+
+  function bodyHeader() {
+    if (props.showBodyHeader) {
+      return (
+        <div id="body-headers">
+          <div id="req-body-container">
+            <label htmlFor="req-body">Body:</label>
+            <textarea type="text" value={props.reqBody} id="req-body" autoComplete='off' onChange={handleBodyChange}></textarea>
+          </div>
+          <div id="req-headers-container">
+          <label htmlFor="req-headers">Headers:</label>
+            <textarea type="text" value={props.reqHeaders} id="req-headers" autoComplete='off' onChange={handleHeadersChange}></textarea>
+          </div>
+        </div>
+      )
+    } else {
+      return (<></>)
+    }
+  }
+
   return(
     <div className='form'>
       <div className='user-input'>
@@ -22,6 +49,7 @@ export default function Form(props) {
         <Button text='PATCH' onClick={props.onChange} selected={props.reqType} />
         <Button text='DELETE' onClick={props.onChange} selected={props.reqType} />
       </div>
+      {bodyHeader()}
     </div>
   )
 }
