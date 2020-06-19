@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { shallow, mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Resty from '../components/Resty';
 
@@ -27,16 +27,37 @@ describe('Resty', () => {
     });
   });
 
-  it('results form renders content on submit', () => {
+  it('results form renders content on submit', async () => {
     let resty = mount(<Resty />);
-    let fetchSpy = jest.spyOn(resty.instance(), 'fetchAPI');
 
     resty.find('#url').simulate('change', {target: {value: 'https://www.dnd5eapi.co/api/classes'}});
 
-    expect(resty.find('#url').props().value).toBe('https://www.dnd5eapi.co/api/classes')
+    expect(resty.find('#url').props().value).toBe('https://www.dnd5eapi.co/api/classes');
+    
+    await resty.find('.submit').simulate('click');
 
-    resty.find('.submit').simulate('click');
+    expect(resty.find('.results')).toBeDefined();
+  });
 
-    expect(fetchSpy).toHaveBeenCalled();
+  it('changes state on body input', () => {
+    let resty = mount(<Resty />);
+
+    let body = resty.find('#req-body');
+    expect(body.props().value).toBe('');
+    expect(resty.state('reqBody')).toBe('');
+    body.simulate('change', {target: {value: 'test'}});
+    expect(body.props().value).toBe('');
+    expect(resty.state('reqBody')).toBe('test');
+  });
+
+  it('changes state on header input', () => {
+    let resty = mount(<Resty />);
+
+    let body = resty.find('#req-headers');
+    expect(body.props().value).toBe('');
+    expect(resty.state('reqHeaders')).toBe('');
+    body.simulate('change', {target: {value: 'test'}});
+    expect(body.props().value).toBe('');
+    expect(resty.state('reqHeaders')).toBe('test');
   });
 });

@@ -1,7 +1,7 @@
 @import './colors';
 @import './util';
 
-.results {
+.results, .loading {
 
   border: 2px inset #797777;
   background-color: $white;
@@ -10,10 +10,54 @@
   max-width: 800px;
   overflow: scroll;
   scroll-behavior: smooth;
+  position: relative;
 
   pre {
     padding: 10px;
     font-family: $body-font;
     font-size: 18px;
   }
+
+  .img {
+    font-family: $body-font;
+    height: 10%;
+    width: 10%;
+    animation: spin 2s linear infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+  }
 }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#close {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border: 4px outset $black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $button-color;
+    color: $white;
+    border: 4px outset $gray;
+
+  }
+}
+
+@keyframes spin { 
+  100% { -webkit-transform: rotate(360deg); 
+    transform:rotate(360deg); 
+    }
+  }

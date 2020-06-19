@@ -1,0 +1,72 @@
+@import './colors';
+@import './util';
+
+
+#history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50%;
+  height: 100%;
+
+}
+
+#history-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  li {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 0;
+    width: 100%;
+
+    .items {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      p {
+        flex: 1;
+        padding: 0 0.5rem;
+        overflow: overlay;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    img {
+      width: 20px;
+      height: 20px;
+
+      &.flip {
+        transform: rotate(180deg);
+      }
+    }
+
+    .req-body {
+      height: 0;
+      overflow: hidden;
+      width: 100%;
+      background-color: $white;
+
+      pre {
+        padding: 0.5rem;
+        overflow: scroll;
+      }
+    }
+
+    &.show {
+      .req-body {
+        height: 100%;
+      }
+    }
+  }
+}
