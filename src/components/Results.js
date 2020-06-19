@@ -8,6 +8,12 @@ export default function Results(props) {
         <pre>{props.results}</pre>
       </div>
     )
+  } else if (props.loading) {
+    return (
+      <div className='loading'>
+        <h1>Loading...</h1>
+      </div>
+    )
   } else {
     return (
       <></>

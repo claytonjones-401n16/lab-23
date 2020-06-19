@@ -17,6 +17,7 @@ export default class RESTy extends React.Component {
       resHeaders: '',
       resBody: '',
       history: [],
+      loading: false,
     }
   }
 
@@ -25,6 +26,8 @@ export default class RESTy extends React.Component {
   }
 
   async handleSubmit() {
+    await this.updateState(true, 'loading');
+    await this.updateState('', 'resBody');
     await this.fetchAPI();
   }
 
@@ -69,7 +72,7 @@ export default class RESTy extends React.Component {
               <Route path='/' exact>
                 <Form onChange={this.updateState.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL}/>
                 
-                <Results results={this.state.resBody} headers={this.state.resHeaders}/>
+                <Results results={this.state.resBody} headers={this.state.resHeaders} loading={this.state.loading}/>
               </Route>
               <Route path='/history'>
                 <History history={this.state.history} updateState={this.updateState.bind(this)} submit={this.fetchAPI.bind(this)}/>
