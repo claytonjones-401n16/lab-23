@@ -8,13 +8,21 @@ export default function Results(props) {
         <pre>{props.results}</pre>
       </div>
     )
+  } else if (props.invalid) {
+    return (
+      <div className="invalid">
+        <h1>Invalid URL</h1>
+      </div>
+    )
   } else if (props.loading) {
     return (
       <div className='loading'>
-        <h1>Loading...</h1>
+        <div className='img'>
+          <img src="./assets/loader.svg" alt="loading" />
+        </div>
       </div>
     )
-  } else {
+  }  else {
     return (
       <></>
     )

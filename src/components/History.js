@@ -13,14 +13,15 @@ export default function History(props) {
   }
 
   let prevReq = [];
-  
+
   props.history.forEach((req, i) => {
     prevReq.push(
-      <Link to='/' key={i} >
-        <li key={i} onClick={ async () => { await onClick(req.method, req.url) } }>
+      <li key={i.toString()} >
           {`${req.method}: ${req.url}`}
-        </li>
-      </Link>
+        <Link to='/' key={(i + 1000).toString()} >
+          <button key={(i + 2000).toString()} onClick={ async () => { await onClick(req.method, req.url) } }>GO!</button>
+        </Link>
+      </li>
     );
   })
 

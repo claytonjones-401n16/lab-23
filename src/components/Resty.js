@@ -18,6 +18,7 @@ export default class RESTy extends React.Component {
       resBody: '',
       history: [],
       loading: false,
+      invalid: false,
     }
   }
 
@@ -26,39 +27,54 @@ export default class RESTy extends React.Component {
   }
 
   async handleSubmit() {
-    await this.updateState(true, 'loading');
     await this.updateState('', 'resBody');
-    await this.fetchAPI();
+    await this.updateState('', 'resHeaders');
+    await this.updateState(false, 'invalid');
+    if (this.state.reqURL) {
+      await this.updateState(true, 'loading');
+      await this.fetchAPI();
+    }
   }
 
   async fetchAPI() {
-    let response = await fetch(this.state.reqURL, {
-      method: this.state.reqType,
-    });
+    try {
 
-    // found solution to fetch headers object issue here: https://stackoverflow.com/questions/48413050/missing-headers-in-fetch-response/48432628
-    let headers = {};
-    for(let entry of response.headers.entries()) {
-      headers[entry[0]] = entry[1];
-    }
+      let response = await fetch(this.state.reqURL, {
+        method: this.state.reqType,
+      });
+  
+      // found solution to fetch headers object issue here: https://stackoverflow.com/questions/48413050/missing-headers-in-fetch-response/48432628
+      let headers = {};
+      
+      for(let entry of response.headers.entries()) {
+        headers[entry[0]] = entry[1];
+      }
+  
+      headers = JSON.stringify(headers, null, 2);
+  
+      let data = await response.json();
+      let isNotError = true;
 
-    headers = JSON.stringify(headers, null, 2);
+      if (data['error']) isNotError = false
 
-    let data = await response.json();
-    data = JSON.stringify(data, null, 2);
+      data = JSON.stringify(data, null, 2);
+  
+      await this.setState({...this.state, resBody: "Response : " + data, resHeaders: "Headers : " + headers });  
+      
+      let reqToSave = {
+        url: this.state.reqURL,
+        method: this.state.reqType,
+        body: this.state.resBody
+      }
+  
+      const exists = (element) => element.url === reqToSave.url && element.method === reqToSave.method;
+      
+      if (!this.state.history.some(exists) && isNotError) {
+        await this.setState({...this.state, history: [...this.state.history, reqToSave]});
+      }
 
-    await this.setState({...this.state, resBody: "Response : " + data, resHeaders: "Headers : " + headers });  
-    
-    let reqToSave = {
-      url: this.state.reqURL,
-      method: this.state.reqType,
-      body: this.state.resBody
-    }
-
-    const exists = (element) => element.url === reqToSave.url && element.method === reqToSave.method;
-    
-    if (!this.state.history.some(exists)) {
-      await this.setState({...this.state, history: [...this.state.history, reqToSave]});
+    } catch(e) {
+      await this.setState({...this.state, invalid: true});
     }
 
   }
@@ -72,7 +88,7 @@ export default class RESTy extends React.Component {
               <Route path='/' exact>
                 <Form onChange={this.updateState.bind(this)} onSubmit={this.handleSubmit.bind(this)} reqType={this.state.reqType} url={this.state.reqURL}/>
                 
-                <Results results={this.state.resBody} headers={this.state.resHeaders} loading={this.state.loading}/>
+                <Results results={this.state.resBody} headers={this.state.resHeaders} loading={this.state.loading} invalid={this.state.invalid}/>
               </Route>
               <Route path='/history'>
                 <History history={this.state.history} updateState={this.updateState.bind(this)} submit={this.fetchAPI.bind(this)}/>

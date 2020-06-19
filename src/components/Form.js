@@ -33,7 +33,6 @@ function Button(props) {
   }
 
   function handleSubmit(e) {
-    console.log('submit');
     props.onSubmit();
   }
 
